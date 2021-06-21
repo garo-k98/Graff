@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Home">
+
+
+    <RadioGroup
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_centerHorizontal="true">
+
+        <RadioButton
+            android:id="@+id/firstListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Popular"
+            android:button="@android:color/transparent"
+            android:background="@drawable/radio_selector"
+            android:textColor="@drawable/text_color"
+            android:elevation="4dp"
+            android:padding="16dp"
+            android:layout_marginTop="40dp"/>
+
+        <RadioButton
+            android:id="@+id/secondListView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Newest"
+            android:button="@android:color/transparent"
+            android:background="@drawable/radio_selector"
+            android:textColor="@drawable/text_color"
+            android:elevation="4dp"
+            android:padding="16dp"
+            android:layout_marginTop="40dp"/>
+
+    </RadioGroup>
+
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/container"/>
+
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/bottomNav"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        app:menu="@menu/menu" />
+
+</RelativeLayout>
