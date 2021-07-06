@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 
 public class HomeGameFragment extends Fragment {
-    //TextView t;
+    TextView t;
 
 
 
@@ -26,14 +26,14 @@ public class HomeGameFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
+
         View v = inflater.inflate(R.layout.fragment_home_game, container, false);
-       /* t = (TextView) v.findViewById(R.id.text1);
+        t = v.findViewById(R.id.text1);
         Bundle b = getArguments();
         if(b!=null) {
             String s = b.getString("s");
             t.setText(s);
         }
-*/
         // Inflate the layout for this fragment
         return v;
     }

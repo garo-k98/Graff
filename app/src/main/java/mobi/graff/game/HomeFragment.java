@@ -23,8 +23,6 @@ public class HomeFragment extends Fragment {
     ArrayAdapter<String> adapter;
 
 
-
-
     public HomeFragment() {
 
     }
@@ -52,15 +50,18 @@ public class HomeFragment extends Fragment {
         al.add("twelve");
         al.add("thirteen");
         al.add("fourteen");
+        al.add("fifteen");
+        al.add("sixteen");
 
-        /*lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 String s = al.get(position);
                 Home mnl = (Home) getActivity();
                 mnl.f1(s);
             }
-        });*/
+        });
 
 
         return view;

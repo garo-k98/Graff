@@ -19,6 +19,12 @@ public class Home extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+        FragmentManager manager = getSupportFragmentManager();
+        FragmentTransaction t = manager.beginTransaction();
+        HomeFragment m1 = new HomeFragment();
+        t.add(R.id.container, m1);
+        t.commit();
+
 
         bottomNavigationView = findViewById(R.id.bottomNav);
 
@@ -56,14 +62,14 @@ public class Home extends AppCompatActivity {
                 }
             };
 
-    /*public void f1(String s) {
+    public void f1(String s) {
         FragmentManager manager1 = getSupportFragmentManager();
         FragmentTransaction t1 = manager1.beginTransaction();
         HomeGameFragment m22 = new HomeGameFragment();
         Bundle b2 = new Bundle();
         b2.putString("s", s);
         m22.setArguments(b2);
-        t1.replace(R.id.Home, m22);
+        t1.replace(R.id.container, m22);
         t1.commit();
-    }*/
+    }
 }

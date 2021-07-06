@@ -8,38 +8,6 @@
     tools:context=".Home">
 
 
-    <RadioGroup
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_centerHorizontal="true">
-
-        <RadioButton
-            android:id="@+id/firstListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Popular"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_selector"
-            android:textColor="@drawable/text_color"
-            android:elevation="4dp"
-            android:padding="16dp"
-            android:layout_marginTop="40dp"/>
-
-        <RadioButton
-            android:id="@+id/secondListView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Newest"
-            android:button="@android:color/transparent"
-            android:background="@drawable/radio_selector"
-            android:textColor="@drawable/text_color"
-            android:elevation="4dp"
-            android:padding="16dp"
-            android:layout_marginTop="40dp"/>
-
-    </RadioGroup>
-
 
     <FrameLayout
         android:layout_width="match_parent"

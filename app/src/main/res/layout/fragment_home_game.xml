@@ -7,6 +7,11 @@
     tools:context=".HomeGameFragment">
 
 
-
+<TextView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/text1"
+    android:textColor="#000"
+    android:textSize="30dp"/>
 
 </LinearLayout>

@@ -1,64 +1,111 @@
 package mobi.graff.game;
 
+//import android.content.Context;
 import android.os.Bundle;
 
+//import androidx.annotation.NonNull;
+//import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+//import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+//import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.ImageView;
+import android.widget.Button;
+import android.widget.AdapterView;
+import android.widget.TextView;
+import android.widget.Toast;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link GamesFragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+
 public class GamesFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    //ListView lv1,lv2;
+    //ArrayList<String> al1, al2;
+    //ArrayAdapter<String> adapter;
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
 
-    public GamesFragment() {
-        // Required empty public constructor
-    }
+    public ArrayList<String> data = new ArrayList<>();
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment GamesFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static GamesFragment newInstance(String param1, String param2) {
-        GamesFragment fragment = new GamesFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
+        View view = inflater.inflate(R.layout.fragment_games, container, false);
+        ListView lv1 = view.findViewById(R.id.listView1);
+        ListView lv2 = view.findViewById(R.id.listView2);
+        generateListContent();
+        lv1.setAdapter(new MyListAdapter(this, R.layout.list_item, data));
+        lv2.setAdapter(new MyListAdapter(this, R.layout.list_item, data));
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //al1 = new ArrayList<>();
+        //al2 = new ArrayList<>();
+        //adapter = new ArrayAdapter<>(getActivity(), android.R.layout.list_item, data);
+        //lv1.setAdapter(adapter);
+        //adapter = new ArrayAdapter<>(getActivity(), android.R.layout.simple_list_item_activated_1, data);
+        //lv2.setAdapter(adapter);
+
+        return view;
+
+    }
+
+    private void generateListContent() {
+        for(int i = 0; i < 10; i++) {
+            data.add("This is row number " + i);
         }
     }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_games, container, false);
+    private static class MyListAdapter extends ArrayAdapter<String> {
+        private int layout;
+        private List<String> mObjects;
+        private MyListAdapter(GamesFragment context, int resource, List<String> objects) {
+            super(context.getActivity(), resource, objects);
+            mObjects = objects;
+            layout = resource;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder mainViewHolder;
+            if(convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(layout, parent, false);
+                ViewHolder viewHolder = new ViewHolder();
+                viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.List_item_thumbnail);
+                viewHolder.title = (TextView) convertView.findViewById(R.id.List_item_name);
+                viewHolder.button = (Button) convertView.findViewById(R.id.List_item_button);
+                viewHolder.description = (TextView) convertView.findViewById(R.id.List_item_des);
+                convertView.setTag(viewHolder);
+            }
+            mainViewHolder = (ViewHolder) convertView.getTag();
+            mainViewHolder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Button was clicked for List item " + position, Toast.LENGTH_LONG).show();
+                }
+            });
+            mainViewHolder.title.setText(getItem(position));
+
+            return convertView;
+        }
+    }
+
+    private static class ViewHolder {
+        ImageView thumbnail;
+        TextView title;
+        Button button;
+        TextView description;
     }
 }
