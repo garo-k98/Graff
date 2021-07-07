@@ -1,19 +1,17 @@
 package mobi.graff.game;
 
-import androidx.annotation.NonNull;
+//import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
-import android.view.MenuItem;
+//import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class Home extends AppCompatActivity {
-
-    private BottomNavigationView bottomNavigationView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,41 +24,38 @@ public class Home extends AppCompatActivity {
         t.commit();
 
 
-        bottomNavigationView = findViewById(R.id.bottomNav);
+        BottomNavigationView bottomNavigationView = findViewById(R.id.bottomNav);
 
         bottomNavigationView.setOnNavigationItemSelectedListener(bottomNavMethod);
 
         getSupportFragmentManager().beginTransaction().replace(R.id.container, new HomeFragment()).commit();
     }
 
-    private BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = new
-            BottomNavigationView.OnNavigationItemSelectedListener() {
-                @Override
-                public boolean onNavigationItemSelected(@NonNull MenuItem menuItem) {
+    private final BottomNavigationView.OnNavigationItemSelectedListener bottomNavMethod = menuItem -> {
 
-                    Fragment fragment= null;
-                    switch (menuItem.getItemId()) {
-                        case R.id.Home:
-                            fragment = new HomeFragment();
-                            break;
+        Fragment fragment= null;
+        switch (menuItem.getItemId()) {
+            case R.id.Home:
+                fragment = new HomeFragment();
+                break;
 
-                        case R.id.Games:
-                            fragment = new GamesFragment();
-                            break;
+            case R.id.Games:
+                fragment = new GamesFragment();
+                break;
 
-                        case R.id.Create:
-                            fragment = new CreateFragment();
-                            break;
+            case R.id.Create:
+                fragment = new CreateFragment();
+                break;
 
-                        case R.id.Profile:
-                            fragment = new ProfileFragment();
-                            break;
-                    }
+            case R.id.Profile:
+                fragment = new ProfileFragment();
+                break;
+        }
 
-                    getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
-                    return true;
-                }
-            };
+        assert fragment != null;
+        getSupportFragmentManager().beginTransaction().replace(R.id.container, fragment).commit();
+        return true;
+    };
 
     public void f1(String s) {
         FragmentManager manager1 = getSupportFragmentManager();

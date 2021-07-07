@@ -9,7 +9,7 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
+//import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -38,13 +38,11 @@ public class HomeFragment extends Fragment {
         ListView lv1 = view.findViewById(R.id.idListView);
         generateListContent();
         lv1.setAdapter(new HomeFragment.MyListAdapter(this, R.layout.list_item, data));
-        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = data.get(position);
-                Home mnl = (Home) getActivity();
-                mnl.f1(s);
-            }
+        lv1.setOnItemClickListener((parent, view1, position, id) -> {
+            String s = data.get(position);
+            Home mnl = (Home) getActivity();
+            assert mnl != null;
+            mnl.f1(s);
         });
 
         return view;
@@ -58,11 +56,10 @@ public class HomeFragment extends Fragment {
     }
 
     private static class MyListAdapter extends ArrayAdapter<String> {
-        private int layout;
-        private List<String> mObjects;
+        private final int layout;
+
         private MyListAdapter(HomeFragment context, int resource, List<String> objects) {
             super(context.getActivity(), resource, objects);
-            mObjects = objects;
             layout = resource;
         }
 
@@ -80,12 +77,7 @@ public class HomeFragment extends Fragment {
                 convertView.setTag(viewHolder);
             }
             mainViewHolder = (HomeFragment.ViewHolder) convertView.getTag();
-            mainViewHolder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Button was clicked for List item " + position, Toast.LENGTH_LONG).show();
-                }
-            });
+            mainViewHolder.button.setOnClickListener(v -> Toast.makeText(getContext(), "Button was clicked for List item " + position, Toast.LENGTH_LONG).show());
             mainViewHolder.title.setText(getItem(position));
 
             return convertView;

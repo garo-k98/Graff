@@ -16,7 +16,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ImageView;
 import android.widget.Button;
-import android.widget.AdapterView;
+//import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -43,18 +43,8 @@ public class GamesFragment extends Fragment {
         generateListContent();
         lv1.setAdapter(new MyListAdapter(this, R.layout.list_item, data));
         lv2.setAdapter(new MyListAdapter(this, R.layout.list_item, data));
-        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
-        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
-            }
-        });
+        lv1.setOnItemClickListener((parent, view1, position, id) -> Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show());
+        lv2.setOnItemClickListener((parent, view12, position, id) -> Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show());
         //al1 = new ArrayList<>();
         //al2 = new ArrayList<>();
         //adapter = new ArrayAdapter<>(getActivity(), android.R.layout.list_item, data);
@@ -73,11 +63,10 @@ public class GamesFragment extends Fragment {
     }
 
     private static class MyListAdapter extends ArrayAdapter<String> {
-        private int layout;
-        private List<String> mObjects;
+        private final int layout;
+
         private MyListAdapter(GamesFragment context, int resource, List<String> objects) {
             super(context.getActivity(), resource, objects);
-            mObjects = objects;
             layout = resource;
         }
 
@@ -95,12 +84,7 @@ public class GamesFragment extends Fragment {
                 convertView.setTag(viewHolder);
             }
             mainViewHolder = (ViewHolder) convertView.getTag();
-            mainViewHolder.button.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(getContext(), "Button was clicked for List item " + position, Toast.LENGTH_LONG).show();
-                }
-            });
+            mainViewHolder.button.setOnClickListener(v -> Toast.makeText(getContext(), "Button was clicked for List item " + position, Toast.LENGTH_LONG).show());
             mainViewHolder.title.setText(getItem(position));
 
             return convertView;

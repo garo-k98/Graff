@@ -34,7 +34,7 @@ public class HomeGameFragment extends Fragment {
             String s = b.getString("s");
             t.setText(s);
         }
-        // Inflate the layout for this fragment
+
         return v;
     }
 }

@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
+//import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
@@ -16,8 +16,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView Info;
     private Button Login;
     private int counter = 5;
-    private TextView SignUp;
-    private TextView ForgotP;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,15 +26,12 @@ public class MainActivity extends AppCompatActivity {
         Password = (EditText) findViewById(R.id.etPassword);
         Info = (TextView) findViewById(R.id.tvInfo);
         Login = (Button) findViewById(R.id.btnLogin);
-        SignUp = (TextView) findViewById(R.id.ClickSignUp);
-        ForgotP = (TextView) findViewById(R.id.ClickForgot);
+        TextView signUp = (TextView) findViewById(R.id.ClickSignUp);
+        TextView forgotP = (TextView) findViewById(R.id.ClickForgot);
 
-        SignUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SignIn.class);
-                startActivity(intent);
-            }
+        signUp.setOnClickListener(v -> {
+            Intent intent = new Intent(MainActivity.this, SignIn.class);
+            startActivity(intent);
         });
 
         /*ForgotP.setOnClickListener(new View.OnClickListener() {
@@ -49,12 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
         Info.setText("Number of attempts remaining: 5");
 
-        Login.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View view) {
-                validate(Name.getText().toString(), Password.getText().toString());
-            }
-        });
+        Login.setOnClickListener(view -> validate(Name.getText().toString(), Password.getText().toString()));
     }
     private void validate(String userName, String userPassword) {
         if((userName.equals("Admin")) && (userPassword.equals("12345"))) {
