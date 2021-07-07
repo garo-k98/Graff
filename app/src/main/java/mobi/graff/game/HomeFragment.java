@@ -1,9 +1,9 @@
 package mobi.graff.game;
 
-import android.graphics.Color;
+//import android.graphics.Color;
 import android.os.Bundle;
 
-import androidx.appcompat.widget.AppCompatRadioButton;
+//import androidx.appcompat.widget.AppCompatRadioButton;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
@@ -11,60 +11,91 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
+//import java.util.Objects;
 
 
 public class HomeFragment extends Fragment {
 
-    ListView lv;
-    ArrayList<String> al;
-    ArrayAdapter<String> adapter;
+//    ListView lv;
+//    ArrayList<String> al;
+//    ArrayAdapter<String> adapter;
 
-
-    public HomeFragment() {
-
-    }
+    public ArrayList<String> data = new ArrayList<>();
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_home, container, false);
-        lv = (ListView) view.findViewById(R.id.idListView);
-        al = new ArrayList<String>();
-        adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_activated_1, al);
-        lv.setAdapter(adapter);
-        al.add("one");
-        al.add("two");
-        al.add("three");
-        al.add("four");
-        al.add("five");
-        al.add("six");
-        al.add("seven");
-        al.add("eight");
-        al.add("nine");
-        al.add("ten");
-        al.add("eleven");
-        al.add("twelve");
-        al.add("thirteen");
-        al.add("fourteen");
-        al.add("fifteen");
-        al.add("sixteen");
-
-
-        lv.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        ListView lv1 = view.findViewById(R.id.idListView);
+        generateListContent();
+        lv1.setAdapter(new HomeFragment.MyListAdapter(this, R.layout.list_item, data));
+        lv1.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                String s = al.get(position);
+                String s = data.get(position);
                 Home mnl = (Home) getActivity();
                 mnl.f1(s);
             }
         });
 
-
         return view;
 
+    }
+
+    private void generateListContent() {
+        for(int i = 0; i < 20; i++) {
+            data.add("This is row number " + i);
+        }
+    }
+
+    private static class MyListAdapter extends ArrayAdapter<String> {
+        private int layout;
+        private List<String> mObjects;
+        private MyListAdapter(HomeFragment context, int resource, List<String> objects) {
+            super(context.getActivity(), resource, objects);
+            mObjects = objects;
+            layout = resource;
+        }
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            HomeFragment.ViewHolder mainViewHolder;
+            if(convertView == null) {
+                LayoutInflater inflater = LayoutInflater.from(getContext());
+                convertView = inflater.inflate(layout, parent, false);
+                HomeFragment.ViewHolder viewHolder = new HomeFragment.ViewHolder();
+                viewHolder.thumbnail = (ImageView) convertView.findViewById(R.id.List_item_thumbnail);
+                viewHolder.title = (TextView) convertView.findViewById(R.id.List_item_name);
+                viewHolder.button = (Button) convertView.findViewById(R.id.List_item_button);
+                viewHolder.description = (TextView) convertView.findViewById(R.id.List_item_des);
+                convertView.setTag(viewHolder);
+            }
+            mainViewHolder = (HomeFragment.ViewHolder) convertView.getTag();
+            mainViewHolder.button.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(getContext(), "Button was clicked for List item " + position, Toast.LENGTH_LONG).show();
+                }
+            });
+            mainViewHolder.title.setText(getItem(position));
+
+            return convertView;
+        }
+    }
+
+    private static class ViewHolder {
+        ImageView thumbnail;
+        TextView title;
+        Button button;
+        TextView description;
     }
 }

@@ -49,7 +49,12 @@ public class GamesFragment extends Fragment {
                 Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
             }
         });
-
+        lv2.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(Objects.requireNonNull(getActivity()).getApplicationContext(), "List item was clicked at " + position, Toast.LENGTH_SHORT).show();
+            }
+        });
         //al1 = new ArrayList<>();
         //al2 = new ArrayList<>();
         //adapter = new ArrayAdapter<>(getActivity(), android.R.layout.list_item, data);
